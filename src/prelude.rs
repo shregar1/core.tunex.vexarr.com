@@ -9,6 +9,10 @@ pub use crate::{
         BackpressurePolicy, BackpressureState, BoundedChannel, ChannelError, ChannelId,
         ChannelKind, ChannelStats, QueuePressure, ReceiveOutcome, SendOutcome,
     },
+    checkpoint::{
+        CheckpointFormat, CheckpointId, CheckpointMetadata, CheckpointPolicy, CheckpointReader,
+        CheckpointSnapshot, CheckpointState, CheckpointWriter, ResumePolicy,
+    },
     config::{
         CheckpointConfig, ConfigFormat, ConfigOverride, DatasetConfig, DistributedConfig,
         MetricsConfig, OverrideSource, PackerConfig, PackingStrategy, PluginConfig, QueueConfig,
@@ -44,11 +48,9 @@ pub use crate::{
         BatchPriority, CpuAffinity, GpuAffinity, NumaNode, ResourceHint, ResourceLimit,
         SchedulingDecision, SchedulingPolicy, TaskId, TaskKind, TaskPriority, WorkerAffinity,
     },
-    traits::{
-        CheckpointWriter, DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend,
-    },
+    traits::{DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend},
     types::{
-        BatchView, BorrowedBatch, CheckpointMetadata, OwnedBatch, PackedBatch, PipelineEvent,
-        RawSample, StepMetrics, TokenizedSample, WorkerState, ZeroCopyBuffer,
+        BatchView, BorrowedBatch, OwnedBatch, PackedBatch, PipelineEvent, RawSample, StepMetrics,
+        TokenizedSample, WorkerState, ZeroCopyBuffer,
     },
 };

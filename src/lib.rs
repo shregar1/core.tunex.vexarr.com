@@ -7,6 +7,7 @@
 
 pub mod cancellation;
 pub mod channel;
+pub mod checkpoint;
 pub mod config;
 pub mod error;
 pub mod events;

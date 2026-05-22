@@ -31,28 +31,4 @@ impl StepMetrics {
     }
 }
 
-/// Metadata describing a checkpoint artifact.
-#[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
-pub struct CheckpointMetadata {
-    /// Training step captured by the checkpoint.
-    pub step: u64,
-    /// Stable checkpoint identifier.
-    pub checkpoint_id: String,
-    /// Backend that produced the checkpoint.
-    pub backend: String,
-    /// Optional content checksum.
-    pub checksum: Option<String>,
-}
-
-impl CheckpointMetadata {
-    /// Creates checkpoint metadata.
-    #[must_use]
-    pub fn new(step: u64, checkpoint_id: impl Into<String>, backend: impl Into<String>) -> Self {
-        Self {
-            step,
-            checkpoint_id: checkpoint_id.into(),
-            backend: backend.into(),
-            checksum: None,
-        }
-    }
-}
+pub use crate::checkpoint::CheckpointMetadata;
