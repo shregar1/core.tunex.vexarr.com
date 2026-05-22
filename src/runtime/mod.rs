@@ -1,36 +1,8 @@
 //! Runtime control-plane contracts.
 
-use std::sync::{
-    atomic::{AtomicBool, Ordering},
-    Arc,
-};
-
 use serde::{Deserialize, Serialize};
 
-/// Shared cancellation token for coordinated shutdown.
-#[derive(Clone, Debug, Default)]
-pub struct CancellationToken {
-    cancelled: Arc<AtomicBool>,
-}
-
-impl CancellationToken {
-    /// Creates a new cancellation token.
-    #[must_use]
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    /// Requests cancellation.
-    pub fn cancel(&self) {
-        self.cancelled.store(true, Ordering::Release);
-    }
-
-    /// Returns true when cancellation has been requested.
-    #[must_use]
-    pub fn is_cancelled(&self) -> bool {
-        self.cancelled.load(Ordering::Acquire)
-    }
-}
+pub use crate::cancellation::{CancellationReason, CancellationToken, DrainPolicy, ShutdownMode};
 
 /// Signal sent to a worker by orchestration.
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]

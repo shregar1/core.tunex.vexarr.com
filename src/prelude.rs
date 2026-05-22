@@ -1,6 +1,10 @@
 //! Common imports for implementors of `TuneX` core contracts.
 
 pub use crate::{
+    cancellation::{
+        CancellationReason, CancellationScope, CancellationToken, DrainPolicy, ShutdownGuard,
+        ShutdownMode,
+    },
     channel::{
         BackpressurePolicy, BackpressureState, BoundedChannel, ChannelError, ChannelId,
         ChannelKind, ChannelStats, QueuePressure, ReceiveOutcome, SendOutcome,
@@ -32,7 +36,7 @@ pub use crate::{
         PluginCapability, PluginHandle, PluginId, PluginKind, PluginLoader, PluginMetadata,
         PluginName, PluginRegistry, PluginStatus, PluginVersion, TunexPlugin,
     },
-    runtime::{CancellationToken, RuntimeLayer, ShutdownReason, WorkerSignal},
+    runtime::{RuntimeLayer, ShutdownReason, WorkerSignal},
     scheduler::{BatchPriority, SchedulingPolicy, TaskPriority, WorkerAffinity},
     traits::{
         CheckpointWriter, DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend,
