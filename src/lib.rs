@@ -8,6 +8,7 @@
 pub mod config;
 pub mod error;
 pub mod events;
+pub mod memory;
 pub mod pipeline;
 pub mod plugin;
 pub mod prelude;

@@ -8,6 +8,10 @@ pub use crate::{
     },
     error::{TunexError, TunexResult},
     events::{EventPublisher, EventSubscriber, PipelineEventBus},
+    memory::{
+        AlignedBuffer, Alignment, ArenaAllocator, ArenaMark, BufferView, MemoryArena, MemoryHint,
+        OwnedBuffer, SharedBuffer,
+    },
     pipeline::{
         BatchChannel, PipelineEventPublisher, PipelineNode, PipelineNodeId, PipelineNodeMetadata,
         PipelineStage,
