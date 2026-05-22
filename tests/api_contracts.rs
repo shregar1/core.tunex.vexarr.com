@@ -1,7 +1,7 @@
 use std::error::Error;
 
 use tunex_core::{
-    config::CoreConfig,
+    config::TunexConfig,
     prelude::*,
     traits::{
         CheckpointWriter, DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend,
@@ -13,7 +13,7 @@ fn assert_object_safe<T: ?Sized>() {}
 
 #[test]
 fn v0_1_public_modules_are_exported() {
-    let _ = CoreConfig::default();
+    let _ = TunexConfig::default();
     let _ = RawSample::default();
     let _ = StepMetrics::default();
 }
@@ -48,11 +48,11 @@ fn tunex_result_alias_uses_tunex_error() {
 
 #[test]
 fn config_defaults_are_stable() {
-    let config = CoreConfig::default();
+    let config = TunexConfig::default();
 
-    assert_eq!(config.pipeline.max_tokens_per_batch, 4096);
-    assert_eq!(config.pipeline.max_samples_per_batch, 64);
-    assert!(config.metrics.enabled);
-    assert_eq!(config.metrics.namespace.as_deref(), Some("tunex"));
+    assert_eq!(config.version, "0.1");
+    assert_eq!(config.packer.max_seq_len, 4096);
+    assert_eq!(config.runtime.queues.dataset_to_tokenizer, 1024);
+    assert_eq!(config.runtime.queues.tokenizer_to_packer, 512);
     assert!(config.checkpoint.enabled);
 }
