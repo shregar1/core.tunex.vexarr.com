@@ -1,0 +1,21 @@
+[package]
+name = "tunex-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.80"
+description = "Core orchestration and abstraction layer for the TuneX ecosystem."
+license = "Apache-2.0"
+repository = "https://github.com/vexarr/core.tunex.vexarr.com"
+
+[lib]
+name = "tunex_core"
+path = "src/lib.rs"
+
+[dependencies]
+async-trait = "0.1.89"
+bytes = { version = "1", features = ["serde"] }
+metrics = "0.24.6"
+serde = { version = "1.0.228", features = ["derive", "rc"] }
+smallvec = { version = "1", features = ["serde"] }
+thiserror = "2.0.18"
+tracing = "0.1.44"
