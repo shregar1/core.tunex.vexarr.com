@@ -7,7 +7,13 @@
 
 pub mod config;
 pub mod error;
+pub mod events;
+pub mod pipeline;
+pub mod plugin;
 pub mod prelude;
+pub mod runtime;
+pub mod scheduler;
+pub mod topology;
 pub mod traits;
 pub mod types;
 

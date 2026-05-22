@@ -19,3 +19,21 @@ serde = { version = "1.0.228", features = ["derive", "rc"] }
 smallvec = { version = "1", features = ["serde"] }
 thiserror = "2.0.18"
 tracing = "0.1.44"
+
+[dev-dependencies]
+criterion = "0.7.0"
+
+[features]
+default = ["tokio"]
+tokio = []
+rayon = []
+distributed = []
+metrics = []
+wasm = []
+cuda = []
+metal = []
+rocm = []
+
+[[bench]]
+name = "contract_overhead"
+harness = false
