@@ -1,48 +1,17 @@
-//! Runtime control-plane contracts.
+//! Runtime execution contracts.
 
-use serde::{Deserialize, Serialize};
+pub mod context;
+pub mod engine;
+pub mod executor;
+pub mod handle;
+pub mod state;
+pub mod stats;
+
+pub use context::{RuntimeContext, RuntimeOptions};
+pub use engine::RuntimeEngine;
+pub use executor::RuntimeExecutor;
+pub use handle::RuntimeHandle;
+pub use state::{RuntimeLayer, RuntimeMode, RuntimeState, ShutdownReason, WorkerSignal};
+pub use stats::RuntimeStats;
 
 pub use crate::cancellation::{CancellationReason, CancellationToken, DrainPolicy, ShutdownMode};
-
-/// Signal sent to a worker by orchestration.
-#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum WorkerSignal {
-    /// Start or resume work.
-    Start,
-    /// Pause work without losing state.
-    Pause,
-    /// Drain in-flight work and stop.
-    Drain,
-    /// Stop as soon as possible.
-    Stop,
-    /// Restart the worker.
-    Restart,
-}
-
-/// Reason a runtime or worker is shutting down.
-#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ShutdownReason {
-    /// Normal graceful shutdown.
-    Graceful,
-    /// User requested cancellation.
-    Cancelled,
-    /// A pipeline component failed.
-    ComponentFailed(String),
-    /// Memory pressure or out-of-memory condition.
-    OutOfMemory,
-    /// Worker restart requested.
-    WorkerRestart,
-}
-
-/// Logical runtime layer.
-#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum RuntimeLayer {
-    /// Control plane coordination.
-    ControlPlane,
-    /// Pipeline orchestration runtime.
-    PipelineRuntime,
-    /// Worker pool execution.
-    WorkerPool,
-    /// Execution node.
-    ExecutionNode,
-}

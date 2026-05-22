@@ -36,8 +36,14 @@ pub use crate::{
         PluginCapability, PluginHandle, PluginId, PluginKind, PluginLoader, PluginMetadata,
         PluginName, PluginRegistry, PluginStatus, PluginVersion, TunexPlugin,
     },
-    runtime::{RuntimeLayer, ShutdownReason, WorkerSignal},
-    scheduler::{BatchPriority, SchedulingPolicy, TaskPriority, WorkerAffinity},
+    runtime::{
+        RuntimeContext, RuntimeEngine, RuntimeExecutor, RuntimeHandle, RuntimeLayer, RuntimeMode,
+        RuntimeOptions, RuntimeState, RuntimeStats, ShutdownReason, WorkerSignal,
+    },
+    scheduler::{
+        BatchPriority, CpuAffinity, GpuAffinity, NumaNode, ResourceHint, ResourceLimit,
+        SchedulingDecision, SchedulingPolicy, TaskId, TaskKind, TaskPriority, WorkerAffinity,
+    },
     traits::{
         CheckpointWriter, DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend,
     },
