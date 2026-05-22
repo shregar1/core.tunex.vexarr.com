@@ -18,6 +18,10 @@ pub use crate::{
         MetricsConfig, OverrideSource, PackerConfig, PackingStrategy, PluginConfig, QueueConfig,
         RuntimeConfig, TokenizerConfig, TrainerConfig, TunexConfig, ValidateConfig, WorkerConfig,
     },
+    distributed::{
+        ClusterId, ClusterMembership, ClusterState, DistributedCoordinator, NodeHeartbeat, NodeId,
+        NodeMembership, NodeRole, NodeState, PlacementStrategy, WorkerPlacement,
+    },
     error::{
         Diagnostic, DiagnosticLevel, ErrorCode, ErrorContext, ErrorKind, Recoverability,
         TunexError, TunexResult,

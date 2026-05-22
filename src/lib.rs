@@ -9,6 +9,7 @@ pub mod cancellation;
 pub mod channel;
 pub mod checkpoint;
 pub mod config;
+pub mod distributed;
 pub mod error;
 pub mod events;
 pub mod memory;
