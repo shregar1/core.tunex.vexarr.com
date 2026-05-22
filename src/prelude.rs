@@ -6,7 +6,10 @@ pub use crate::{
         MetricsConfig, OverrideSource, PackerConfig, PackingStrategy, PluginConfig, QueueConfig,
         RuntimeConfig, TokenizerConfig, TrainerConfig, TunexConfig, ValidateConfig, WorkerConfig,
     },
-    error::{TunexError, TunexResult},
+    error::{
+        Diagnostic, DiagnosticLevel, ErrorCode, ErrorContext, ErrorKind, Recoverability,
+        TunexError, TunexResult,
+    },
     events::{EventPublisher, EventSubscriber, PipelineEventBus},
     memory::{
         AlignedBuffer, Alignment, ArenaAllocator, ArenaMark, BufferView, MemoryArena, MemoryHint,

@@ -1,11 +1,11 @@
 use std::{str::FromStr, sync::Arc};
 
 use tunex_core::{
+    error::ErrorKind,
     plugin::{
         PluginCapability, PluginId, PluginKind, PluginMetadata, PluginName, PluginRegistry,
         PluginStatus, PluginVersion, TunexPlugin,
     },
-    TunexError,
 };
 
 #[derive(Clone)]
@@ -149,5 +149,5 @@ fn registry_checks_versions_and_required_capabilities() {
         )])
         .unwrap_err();
 
-    assert!(matches!(missing, TunexError::Plugin(_)));
+    assert_eq!(missing.kind(), ErrorKind::Plugin);
 }

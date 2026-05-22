@@ -405,5 +405,5 @@ fn invalid_override(path: &str, value: &str) -> TunexError {
 }
 
 fn config_error(error: &ConfigError) -> TunexError {
-    TunexError::Config(error.to_string())
+    TunexError::config(error.to_string()).recoverable()
 }

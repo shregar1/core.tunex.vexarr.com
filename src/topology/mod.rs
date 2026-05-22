@@ -3,6 +3,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::{
+    error::{ErrorKind, Recoverability},
     pipeline::{PipelineNodeId, PipelineNodeMetadata},
     TunexError, TunexResult,
 };
@@ -60,10 +61,11 @@ impl PipelineGraph {
     /// Returns an error when another node already uses the same id.
     pub fn add_node(&mut self, node: PipelineNodeMetadata) -> TunexResult<()> {
         if self.nodes.iter().any(|existing| existing.id == node.id) {
-            return Err(TunexError::Topology(format!(
-                "duplicate pipeline node id {}",
-                node.id.get()
-            )));
+            return Err(TunexError::new(
+                ErrorKind::Internal,
+                format!("duplicate pipeline node id {}", node.id.get()),
+            )
+            .with_recoverability(Recoverability::Recoverable));
         }
         self.nodes.push(node);
         Ok(())
@@ -76,17 +78,19 @@ impl PipelineGraph {
     /// Returns an error when either endpoint is missing or the edge would create a cycle.
     pub fn add_edge(&mut self, edge: PipelineEdge) -> TunexResult<()> {
         if !self.contains_node(edge.from) || !self.contains_node(edge.to) {
-            return Err(TunexError::Topology(
-                "pipeline edge endpoint is missing".to_owned(),
-            ));
+            return Err(
+                TunexError::new(ErrorKind::Internal, "pipeline edge endpoint is missing")
+                    .with_recoverability(Recoverability::Recoverable),
+            );
         }
 
         self.edges.push(edge);
         if self.has_cycle() {
             let _ = self.edges.pop();
-            return Err(TunexError::Topology(
-                "pipeline edge creates a cycle".to_owned(),
-            ));
+            return Err(
+                TunexError::new(ErrorKind::Internal, "pipeline edge creates a cycle")
+                    .with_recoverability(Recoverability::Recoverable),
+            );
         }
 
         Ok(())

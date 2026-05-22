@@ -167,5 +167,5 @@ impl PluginRegistry {
 }
 
 fn plugin_error(error: &PluginError) -> TunexError {
-    TunexError::Plugin(error.to_string())
+    TunexError::plugin(error.to_string()).recoverable()
 }

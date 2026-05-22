@@ -2,6 +2,7 @@ use std::error::Error;
 
 use tunex_core::{
     config::TunexConfig,
+    error::{ErrorKind, Recoverability},
     prelude::*,
     traits::{
         CheckpointWriter, DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend,
@@ -30,17 +31,23 @@ fn core_traits_are_object_safe() {
 
 #[test]
 fn error_category_and_display_are_stable() {
-    let error = TunexError::Runtime("worker stopped".to_owned());
+    let error = TunexError::new(ErrorKind::Runtime, "worker stopped")
+        .with_recoverability(Recoverability::Retryable);
     let dyn_error: &dyn Error = &error;
 
     assert_eq!(error.category(), "runtime");
-    assert_eq!(dyn_error.to_string(), "runtime error: worker stopped");
+    assert_eq!(error.code().as_str(), "TUNEX-RUNTIME-0000");
+    assert_eq!(error.recoverability(), Recoverability::Retryable);
+    assert_eq!(
+        dyn_error.to_string(),
+        "runtime error [TUNEX-RUNTIME-0000]: worker stopped"
+    );
 }
 
 #[test]
 fn tunex_result_alias_uses_tunex_error() {
     fn fail() -> TunexResult<()> {
-        Err(TunexError::Checkpoint("missing metadata".to_owned()))
+        Err(TunexError::new(ErrorKind::Checkpoint, "missing metadata"))
     }
 
     assert_eq!(fail().unwrap_err().category(), "checkpoint");
