@@ -18,6 +18,7 @@ pub mod plugin;
 pub mod prelude;
 pub mod runtime;
 pub mod scheduler;
+pub mod serialization;
 pub mod topology;
 pub mod traits;
 pub mod types;

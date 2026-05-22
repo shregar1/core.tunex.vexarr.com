@@ -52,6 +52,11 @@ pub use crate::{
         BatchPriority, CpuAffinity, GpuAffinity, NumaNode, ResourceHint, ResourceLimit,
         SchedulingDecision, SchedulingPolicy, TaskId, TaskKind, TaskPriority, WorkerAffinity,
     },
+    serialization::{
+        Codec, CodecRegistry, CompressionKind, DecodeOptions, EncodeOptions, EncodedMessage,
+        MessageEnvelope, MessageMetadataEntry, SchemaVersion, SerializationError,
+        SerializationErrorKind, SerializationFormat,
+    },
     traits::{DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend},
     types::{
         BatchView, BorrowedBatch, OwnedBatch, PackedBatch, PipelineEvent, RawSample, StepMetrics,
