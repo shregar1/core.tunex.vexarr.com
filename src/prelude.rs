@@ -1,6 +1,10 @@
 //! Common imports for implementors of `TuneX` core contracts.
 
 pub use crate::{
+    channel::{
+        BackpressurePolicy, BackpressureState, BoundedChannel, ChannelError, ChannelId,
+        ChannelKind, ChannelStats, QueuePressure, ReceiveOutcome, SendOutcome,
+    },
     config::{
         CheckpointConfig, ConfigFormat, ConfigOverride, DatasetConfig, DistributedConfig,
         MetricsConfig, OverrideSource, PackerConfig, PackingStrategy, PluginConfig, QueueConfig,

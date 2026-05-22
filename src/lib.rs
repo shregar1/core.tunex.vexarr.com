@@ -5,6 +5,7 @@
 
 //! Core orchestration and abstraction contracts for `TuneX`.
 
+pub mod channel;
 pub mod config;
 pub mod error;
 pub mod events;
