@@ -10,7 +10,11 @@ pub use crate::{
         Diagnostic, DiagnosticLevel, ErrorCode, ErrorContext, ErrorKind, Recoverability,
         TunexError, TunexResult,
     },
-    events::{EventPublisher, EventSubscriber, PipelineEventBus},
+    events::{
+        EventBus, EventBusStats, EventFilter, EventId, EventKind, EventMetadata,
+        EventMetadataEntry, EventPublisher, EventSeverity, EventSource, EventSubscriber,
+        EventTimestamp, TunexEvent,
+    },
     memory::{
         AlignedBuffer, Alignment, ArenaAllocator, ArenaMark, BufferView, MemoryArena, MemoryHint,
         OwnedBuffer, SharedBuffer,

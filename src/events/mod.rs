@@ -1,38 +1,19 @@
-//! Event bus contracts for observability and orchestration.
+//! Event bus and telemetry contracts.
 
-use async_trait::async_trait;
+pub mod bus;
+pub mod event;
+pub mod filter;
+pub mod publisher;
+pub mod subscriber;
 
-use crate::{types::PipelineEvent, TunexResult};
+pub use bus::{EventBus, EventBusStats};
+pub use event::{
+    EventId, EventKind, EventMetadata, EventMetadataEntry, EventSeverity, EventSource,
+    EventTimestamp, TunexEvent,
+};
+pub use filter::EventFilter;
+pub use publisher::EventPublisher;
+pub use subscriber::EventSubscriber;
 
-/// Publishes events into the event bus.
-#[async_trait]
-pub trait EventPublisher: Send + Sync {
-    /// Publishes one event.
-    ///
-    /// # Errors
-    ///
-    /// Returns an error when the event bus cannot accept the event.
-    async fn publish(&self, event: PipelineEvent) -> TunexResult<()>;
-}
-
-/// Receives events from the event bus.
-#[async_trait]
-pub trait EventSubscriber: Send + Sync {
-    /// Handles one event.
-    ///
-    /// # Errors
-    ///
-    /// Returns an error when the subscriber cannot process the event.
-    async fn on_event(&self, event: &PipelineEvent) -> TunexResult<()>;
-}
-
-/// Event bus abstraction connecting publishers and subscribers.
-#[async_trait]
-pub trait PipelineEventBus: EventPublisher {
-    /// Registers a subscriber with the bus.
-    ///
-    /// # Errors
-    ///
-    /// Returns an error when the subscriber cannot be registered.
-    async fn subscribe(&self, subscriber: Box<dyn EventSubscriber>) -> TunexResult<()>;
-}
+/// Backward-compatible alias for the core event bus contract.
+pub type PipelineEventBus = dyn EventBus;

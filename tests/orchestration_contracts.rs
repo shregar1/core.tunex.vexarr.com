@@ -1,6 +1,6 @@
 use bytes::Bytes;
 use tunex_core::{
-    events::{EventPublisher, EventSubscriber, PipelineEventBus},
+    events::{EventBus, EventPublisher, EventSubscriber},
     pipeline::{BatchChannel, PipelineNodeId, PipelineNodeMetadata, PipelineStage},
     plugin::{PluginCapability, PluginLoader, PluginMetadata, PluginVersion},
     runtime::{CancellationToken, RuntimeLayer, ShutdownReason, WorkerSignal},
@@ -85,7 +85,7 @@ fn orchestration_contract_types_are_send_sync() {
 fn async_contract_traits_are_object_safe() {
     assert_object_safe::<dyn EventPublisher>();
     assert_object_safe::<dyn EventSubscriber>();
-    assert_object_safe::<dyn PipelineEventBus>();
+    assert_object_safe::<dyn EventBus>();
     assert_object_safe::<dyn PluginLoader>();
     assert_object_safe::<dyn BatchChannel<PipelineEvent>>();
 }
