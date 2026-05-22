@@ -20,8 +20,9 @@ pub use crate::{
         OwnedBuffer, SharedBuffer,
     },
     pipeline::{
-        BatchChannel, PipelineEventPublisher, PipelineNode, PipelineNodeId, PipelineNodeMetadata,
-        PipelineStage,
+        BatchChannel, PipelineEdge, PipelineEventPublisher, PipelineGraph, PipelineNode,
+        PipelineNodeId, PipelineNodeKind, PipelineNodeMetadata, PipelineProcessor, PipelineStage,
+        PipelineState, PipelineValidationError, PipelineValidationReport,
     },
     plugin::{
         PluginCapability, PluginHandle, PluginId, PluginKind, PluginLoader, PluginMetadata,
@@ -29,7 +30,6 @@ pub use crate::{
     },
     runtime::{CancellationToken, RuntimeLayer, ShutdownReason, WorkerSignal},
     scheduler::{BatchPriority, SchedulingPolicy, TaskPriority, WorkerAffinity},
-    topology::{PipelineEdge, PipelineGraph},
     traits::{
         CheckpointWriter, DatasetSource, MetricsSink, SequencePacker, Tokenizer, TrainerBackend,
     },

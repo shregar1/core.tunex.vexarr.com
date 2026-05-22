@@ -1,7 +1,7 @@
 use bytes::Bytes;
 use tunex_core::{
     events::{EventBus, EventPublisher, EventSubscriber},
-    pipeline::{BatchChannel, PipelineNodeId, PipelineNodeMetadata, PipelineStage},
+    pipeline::{BatchChannel, PipelineNodeId, PipelineNodeKind, PipelineNodeMetadata},
     plugin::{PluginCapability, PluginLoader, PluginMetadata, PluginVersion},
     runtime::{CancellationToken, RuntimeLayer, ShutdownReason, WorkerSignal},
     scheduler::{BatchPriority, SchedulingPolicy, TaskPriority, WorkerAffinity},
@@ -15,11 +15,11 @@ fn assert_object_safe<T: ?Sized>() {}
 #[test]
 fn pipeline_graph_rejects_duplicate_nodes_and_cycles() {
     let dataset =
-        PipelineNodeMetadata::new(PipelineNodeId::new(1), "dataset", PipelineStage::Dataset);
+        PipelineNodeMetadata::new(PipelineNodeId::new(1), "dataset", PipelineNodeKind::Dataset);
     let tokenizer = PipelineNodeMetadata::new(
         PipelineNodeId::new(2),
         "tokenizer",
-        PipelineStage::Tokenizer,
+        PipelineNodeKind::Tokenizer,
     );
     let mut graph = PipelineGraph::new();
 

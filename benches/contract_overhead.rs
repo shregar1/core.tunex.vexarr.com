@@ -2,7 +2,7 @@ use std::hint::black_box;
 
 use criterion::{criterion_group, criterion_main, Criterion};
 use tunex_core::{
-    pipeline::{PipelineNodeId, PipelineNodeMetadata, PipelineStage},
+    pipeline::{PipelineNodeId, PipelineNodeKind, PipelineNodeMetadata},
     topology::{PipelineEdge, PipelineGraph},
 };
 
@@ -13,12 +13,12 @@ fn graph_contract_construction(c: &mut Criterion) {
             let dataset = PipelineNodeMetadata::new(
                 PipelineNodeId::new(1),
                 "dataset",
-                PipelineStage::Dataset,
+                PipelineNodeKind::Dataset,
             );
             let tokenizer = PipelineNodeMetadata::new(
                 PipelineNodeId::new(2),
                 "tokenizer",
-                PipelineStage::Tokenizer,
+                PipelineNodeKind::Tokenizer,
             );
 
             graph.add_node(dataset).unwrap();
