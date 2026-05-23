@@ -13,4 +13,7 @@ Start here:
 - `error-model.md` for stable errors and diagnostics.
 - `benchmarking.md` for performance proof expectations.
 - `no-std.md` for portability and feature-gating expectations.
+- `unsafe-policy.md` for unsafe-code review requirements.
+- `performance-invariants.md` for hot-path performance rules.
+- `memory-safety.md` for ownership and safety invariants.
 - `rfcs/` for design records and proposed contract changes.

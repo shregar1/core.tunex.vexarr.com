@@ -1,6 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
-#![deny(missing_docs)]
 #![deny(unsafe_code)]
+#![deny(unsafe_op_in_unsafe_fn)]
+#![warn(missing_docs)]
 #![warn(clippy::all, clippy::pedantic)]
 #![allow(clippy::module_name_repetitions)]
 

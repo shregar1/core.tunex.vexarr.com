@@ -53,3 +53,22 @@ jobs:
 
       - name: Check dependency policy
         run: cargo deny check
+
+  unsafe-audit:
+    name: Unsafe audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-geiger
+        run: cargo install cargo-geiger --locked
+
+      - name: Check unsafe usage
+        run: cargo geiger --all-features --all-targets
