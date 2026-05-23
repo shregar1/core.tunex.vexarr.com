@@ -22,6 +22,7 @@ pub mod resources;
 pub mod runtime;
 pub mod scheduler;
 pub mod serialization;
+pub mod testing;
 pub mod topology;
 pub mod traits;
 pub mod types;

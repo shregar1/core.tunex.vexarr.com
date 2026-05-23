@@ -9,5 +9,6 @@ pub use crate::events::*;
 pub use crate::pipeline::*;
 pub use crate::plugin::*;
 pub use crate::runtime::*;
+pub use crate::testing::*;
 pub use crate::traits::*;
 pub use crate::types::*;
