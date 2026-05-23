@@ -16,6 +16,7 @@ pub mod memory;
 pub mod pipeline;
 pub mod plugin;
 pub mod prelude;
+pub mod resources;
 pub mod runtime;
 pub mod scheduler;
 pub mod serialization;

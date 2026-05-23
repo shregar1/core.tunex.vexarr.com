@@ -44,6 +44,11 @@ pub use crate::{
         PluginCapability, PluginHandle, PluginId, PluginKind, PluginLoader, PluginMetadata,
         PluginName, PluginRegistry, PluginStatus, PluginVersion, TunexPlugin,
     },
+    resources::{
+        CpuResource, DiskResource, GpuResource, MemoryResource, NetworkResource,
+        OversubscriptionPolicy, ResourceId, ResourceKind, ResourceLimit as ManagedResourceLimit,
+        ResourceReservation, ResourceSnapshot, ResourceUsage,
+    },
     runtime::{
         RuntimeContext, RuntimeEngine, RuntimeExecutor, RuntimeHandle, RuntimeLayer, RuntimeMode,
         RuntimeOptions, RuntimeState, RuntimeStats, ShutdownReason, WorkerSignal,
