@@ -12,4 +12,5 @@ Start here:
   contracts.
 - `error-model.md` for stable errors and diagnostics.
 - `benchmarking.md` for performance proof expectations.
+- `no-std.md` for portability and feature-gating expectations.
 - `rfcs/` for design records and proposed contract changes.
