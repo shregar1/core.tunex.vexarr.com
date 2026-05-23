@@ -4,8 +4,17 @@ version = "0.1.0"
 edition = "2021"
 rust-version = "1.80"
 description = "Core interfaces, traits, configs, and orchestration primitives for TuneX modular LLM fine-tuning runtime"
-license = "Apache-2.0 OR MIT"
+license = "MIT OR Apache-2.0"
 repository = "https://github.com/shregar1/core.tunex.vexarr.com"
+homepage = "https://core.tunex.vexarr.com"
+documentation = "https://docs.rs/tunex-core"
+readme = "README.md"
+keywords = ["llm", "finetuning", "rust", "training", "ai"]
+categories = ["science", "development-tools"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
 
 [lib]
 name = "tunex_core"
