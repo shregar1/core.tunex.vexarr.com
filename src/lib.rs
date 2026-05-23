@@ -5,11 +5,11 @@
 #![warn(clippy::all, clippy::pedantic)]
 #![allow(clippy::module_name_repetitions)]
 
-//! TuneX Core
+//! `TuneX` Core
 //!
 //! Core interfaces, traits, configs, memory contracts,
 //! plugin APIs, runtime abstractions, and orchestration primitives
-//! for the TuneX modular LLM fine-tuning ecosystem.
+//! for the `TuneX` modular LLM fine-tuning ecosystem.
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
