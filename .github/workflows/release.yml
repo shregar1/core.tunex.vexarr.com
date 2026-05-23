@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Semver version to release, for example 0.1.1"
+        required: true
+        type: string
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-Dunsafe_code"
+  RUSTDOCFLAGS: "-D warnings"
+
+jobs:
+  release:
+    name: Build release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install release tooling
+        run: |
+          cargo install cargo-audit --locked
+          cargo install cargo-release --locked
+          cargo install git-cliff --locked
+
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate requested version
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          case "${{ inputs.version }}" in
+            0.1.*|0.2.*|0.5.*|1.0.0) ;;
+            *)
+              echo "Unsupported release line: ${{ inputs.version }}"
+              echo "Allowed: 0.1.x, 0.2.x, 0.5.x, 1.0.0"
+              exit 1
+              ;;
+          esac
+
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+      - name: Check crate
+        run: cargo check --all-targets --all-features --locked
+
+      - name: Test
+        run: cargo test --all-targets --all-features --locked
+
+      - name: Lint
+        run: cargo clippy --all-targets --all-features --locked -- -D warnings
+
+      - name: Audit dependencies
+        run: cargo audit
+
+      - name: Build docs
+        run: cargo doc --no-deps --all-features --locked
+
+      - name: Build benchmark targets
+        run: cargo bench --no-run --locked
+
+      - name: Prepare release tag
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          cargo release "${{ inputs.version }}" --no-publish --execute
+
+      - name: Generate changelog
+        run: git-cliff --output CHANGELOG.md
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', inputs.version) || github.ref_name }}
+        run: |
+          gh release create "$RELEASE_TAG" \
+            --title "TuneX Core $RELEASE_TAG" \
+            --notes-file CHANGELOG.md \
+            --verify-tag

@@ -3,9 +3,9 @@ name = "tunex-core"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.80"
-description = "Core orchestration and abstraction layer for the TuneX ecosystem."
-license = "Apache-2.0"
-repository = "https://github.com/vexarr/core.tunex.vexarr.com"
+description = "Core interfaces, traits, configs, and orchestration primitives for TuneX modular LLM fine-tuning runtime"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/shregar1/core.tunex.vexarr.com"
 
 [lib]
 name = "tunex_core"
