@@ -1,6 +1,10 @@
 //! Common imports for implementors of `TuneX` core contracts.
 
 pub use crate::{
+    benchmark::{
+        BenchmarkKind, BenchmarkReport, BenchmarkResult, BenchmarkRunner, BenchmarkScenario,
+        PerformanceBaseline, ProfilerBackend, ProfilerConfig, RegressionThreshold,
+    },
     cancellation::{
         CancellationReason, CancellationScope, CancellationToken, DrainPolicy, ShutdownGuard,
         ShutdownMode,
