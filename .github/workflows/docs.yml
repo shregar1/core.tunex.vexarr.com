@@ -1,0 +1,35 @@
+name: Docs
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTDOCFLAGS: "-D warnings"
+  RUSTFLAGS: "-Dunsafe_code"
+
+jobs:
+  docs:
+    name: Build docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build Rust docs
+        run: cargo doc --no-deps --all-features --locked
+
+      - name: Check documentation links are present
+        run: test -f README.md && test -f docs/architecture.md && test -f docs/rfcs/0001-core-architecture.md
